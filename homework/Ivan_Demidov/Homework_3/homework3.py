@@ -8,4 +8,3 @@ area = (a * b) / 2
 
 print(f"Гипотенуза: {hypotenuse:.2f}")
 print(f"Площадь: {area:.2f}")
-
