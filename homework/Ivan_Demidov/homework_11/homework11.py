@@ -11,15 +11,16 @@ class Book:
 
     def print_details(self):
         if self.is_reserved:
-            print(f"Название: {
-                    self.title}, Автор: {
-                    self.author}, страниц: {
-                    self.pages}, " f"материал: {self.material}, зарезервирована")
+            print(
+                f"Название: {self.title}, Автор: {self.author}, "
+                f"страниц: {self.pages}, материал: {self.material}, "
+                f"зарезервирована"
+            )
         else:
-            print(f"Название: {
-                    self.title}, Автор: {
-                    self.author}, страниц: {
-                    self.pages}, " f"материал: {self.material}")
+            print(
+                f"Название: {self.title}, Автор: {self.author}, "
+                f"страниц: {self.pages}, материал: {self.material}"
+            )
 
 
 book1 = Book("Идиот", "Достоевский", 500, "978-5-1234")
@@ -57,27 +58,46 @@ class SchoolBook(Book):
 
     def print_details(self):
         if self.is_reserved:
-            print(f"Название: {
-                    self.title}, Автор: {
-                    self.author}, страниц: {
-                    self.pages}, " f"предмет: {
-                    self.subject}, класс: {
-                    self.school_class}, зарезервирована")
+            print(
+                f"Название: {self.title}, Автор: {self.author}, "
+                f"страниц: {self.pages}, предмет: {self.subject}, "
+                f"класс: {self.school_class}, зарезервирована"
+            )
         else:
             print(
-                f"Название: {
-                    self.title}, Автор: {
-                    self.author}, страниц: {
-                    self.pages}, "
-                f"предмет: {self.subject}, класс: {self.school_class}"
+                f"Название: {self.title}, Автор: {self.author}, "
+                f"страниц: {self.pages}, предмет: {self.subject}, "
+                f"класс: {self.school_class}"
             )
 
 
-textbook1 = SchoolBook("Алгебра", "Иванов", 200, "978-11-111", "Математика", 9, True)
-textbook2 = SchoolBook(
-    "История России", "Петров", 350, "978-22-222", "История", 8, False
+textbook1 = SchoolBook(
+    "Алгебра",
+    "Иванов",
+    200,
+    "978-11-111",
+    "Математика",
+    9,
+    True,
 )
-textbook3 = SchoolBook("Физика", "Сидоров", 280, "978-33-333", "Физика", 10, True)
+textbook2 = SchoolBook(
+    "История России",
+    "Петров",
+    350,
+    "978-22-222",
+    "История",
+    8,
+    False,
+)
+textbook3 = SchoolBook(
+    "Физика",
+    "Сидоров",
+    280,
+    "978-33-333",
+    "Физика",
+    10,
+    True,
+)
 
 textbook2.is_reserved = True
 
