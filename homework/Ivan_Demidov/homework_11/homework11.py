@@ -11,21 +11,15 @@ class Book:
 
     def print_details(self):
         if self.is_reserved:
-            print(
-                f"Название: {
+            print(f"Название: {
                     self.title}, Автор: {
                     self.author}, страниц: {
-                    self.pages}, "
-                f"материал: {self.material}, зарезервирована"
-            )
+                    self.pages}, " f"материал: {self.material}, зарезервирована")
         else:
-            print(
-                f"Название: {
+            print(f"Название: {
                     self.title}, Автор: {
                     self.author}, страниц: {
-                    self.pages}, "
-                f"материал: {self.material}"
-            )
+                    self.pages}, " f"материал: {self.material}")
 
 
 book1 = Book("Идиот", "Достоевский", 500, "978-5-1234")
@@ -63,15 +57,12 @@ class SchoolBook(Book):
 
     def print_details(self):
         if self.is_reserved:
-            print(
-                f"Название: {
+            print(f"Название: {
                     self.title}, Автор: {
                     self.author}, страниц: {
-                    self.pages}, "
-                f"предмет: {
+                    self.pages}, " f"предмет: {
                     self.subject}, класс: {
-                    self.school_class}, зарезервирована"
-            )
+                    self.school_class}, зарезервирована")
         else:
             print(
                 f"Название: {
@@ -82,25 +73,11 @@ class SchoolBook(Book):
             )
 
 
-textbook1 = SchoolBook(
-    "Алгебра",
-    "Иванов",
-    200,
-    "978-11-111",
-    "Математика",
-    9,
-    True)
+textbook1 = SchoolBook("Алгебра", "Иванов", 200, "978-11-111", "Математика", 9, True)
 textbook2 = SchoolBook(
     "История России", "Петров", 350, "978-22-222", "История", 8, False
 )
-textbook3 = SchoolBook(
-    "Физика",
-    "Сидоров",
-    280,
-    "978-33-333",
-    "Физика",
-    10,
-    True)
+textbook3 = SchoolBook("Физика", "Сидоров", 280, "978-33-333", "Физика", 10, True)
 
 textbook2.is_reserved = True
 
