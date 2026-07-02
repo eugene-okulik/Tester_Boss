@@ -1,10 +1,10 @@
-import pytest
 import requests
+import pytest
 
 URL = "http://objapi.course.qa-practice.com/object"
 
 
-# Фикстуры для setup/teardown
+# 1. Фикстуры для setup/teardown
 @pytest.fixture(scope="session", autouse=True)
 def session_setup_teardown():
     print("\nStart testing")
@@ -19,19 +19,23 @@ def test_setup_teardown():
     print("after test")
 
 
+# 2. Фикстура для независимости тестов (создает и удаляет объект)
 @pytest.fixture
 def create_and_delete_object():
-    """Фикстура для создания объекта перед тестом и удаления после"""
+    """Создает объект перед тестом и удаляет после"""
     data = {"name": "TempObject", "data": {"job": "temp"}}
     resp = requests.post(URL, json=data)
     obj_id = resp.json()["id"]
     yield obj_id
+    # Удаляем объект после теста
     requests.delete(f"{URL}/{obj_id}")
 
 
-# Тест на создание с parametrize (3 разных объекта)
+# 3. Тесты
+
+
 @pytest.mark.parametrize(
-    "name,job",
+    "name, job",
     [
         ("IvanTest1", "QA"),
         ("IvanTest2", "Developer"),
@@ -41,14 +45,12 @@ def create_and_delete_object():
 def test_create(name, job):
     data = {"name": name, "data": {"job": job}}
     resp = requests.post(URL, json=data)
-    assert resp.status_code == 201 or resp.status_code == 200
+    assert resp.status_code == 200 or resp.status_code == 201
     assert resp.json()["name"] == name
-    obj_id = resp.json()["id"]
-    # Удаляем созданный объект
-    requests.delete(f"{URL}/{obj_id}")
+    # Удаляем созданный объект, чтобы не мусорить
+    requests.delete(f"{URL}/{resp.json()['id']}")
 
 
-# Тест на полное изменение (PUT) - независимый
 @pytest.mark.critical
 def test_put(create_and_delete_object):
     obj_id = create_and_delete_object
@@ -58,7 +60,6 @@ def test_put(create_and_delete_object):
     assert resp.json()["name"] == "IvanPut"
 
 
-# Тест на частичное изменение (PATCH) - независимый
 @pytest.mark.medium
 def test_patch(create_and_delete_object):
     obj_id = create_and_delete_object
@@ -68,7 +69,6 @@ def test_patch(create_and_delete_object):
     assert resp.json()["name"] == "IvanPatch"
 
 
-# Тест на получение по ID - независимый
 def test_get(create_and_delete_object):
     obj_id = create_and_delete_object
     resp = requests.get(f"{URL}/{obj_id}")
@@ -76,17 +76,13 @@ def test_get(create_and_delete_object):
     assert resp.json()["id"] == obj_id
 
 
-# Тест на удаление - независимый
-def test_delete():
-    # Создаём объект специально для этого теста
-    data = {"name": "ToDelete", "data": {"job": "delete_test"}}
-    resp = requests.post(URL, json=data)
-    obj_id = resp.json()["id"]
+def test_delete(create_and_delete_object):
+    obj_id = create_and_delete_object
 
-    # Удаляем
+    # Удаляем объект
     delete_resp = requests.delete(f"{URL}/{obj_id}")
     assert delete_resp.status_code == 200
 
-    # Проверяем, что удалён
+    # Проверяем, что он действительно удален (404)
     check_resp = requests.get(f"{URL}/{obj_id}")
     assert check_resp.status_code == 404
