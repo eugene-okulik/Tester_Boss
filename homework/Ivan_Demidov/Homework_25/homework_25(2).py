@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import Select
 
 def main():
     with webdriver.Chrome() as driver:
+        driver.set_window_size(800, 800)
         driver.implicitly_wait(5)
         driver.get("https://demoqa.com/automation-practice-form")
 
@@ -39,6 +40,8 @@ def main():
         hobby = driver.find_element(By.ID, "hobbies-checkbox-1")
         driver.execute_script("arguments[0].click();", hobby)
 
+        driver.find_element(By.ID, "currentAddress").send_keys("Baker street")
+
         state_input = driver.find_element(By.ID, "react-select-3-input")
         state_input.send_keys("NCR")
         state_input.send_keys(Keys.ENTER)
@@ -48,7 +51,10 @@ def main():
         city_input.send_keys(Keys.ENTER)
 
         submit_btn = driver.find_element(By.ID, "submit")
-        driver.execute_script("arguments[0].click();", submit_btn)
+        submit_btn.click()
+
+        table = driver.find_element(By.CSS_SELECTOR, ".table-responsive")
+        print(table.text)
 
 
 if __name__ == "__main__":
