@@ -1,0 +1,7 @@
+first_product_link = "a.oe_product_image_link"
+add_to_cart_btn = "#add_to_cart"
+continue_shopping_btn = "button.btn-secondary"
+cart_quantity = ".my_cart_quantity"
+product_title = "h1[itemprop='name']"
+logo_link = "a.navbar-brand"
+categories_text = "#top_menu .dropdown-toggle span"
